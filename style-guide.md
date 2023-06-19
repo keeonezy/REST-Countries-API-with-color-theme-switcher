@@ -1,0 +1,2 @@
+- Homepage Items: 14px
+- Detail Page: 16px
