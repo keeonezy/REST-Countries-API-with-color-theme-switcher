@@ -10,13 +10,45 @@
 </head>
 
 <body class="body">
-    <header class="header">
-        <h1 class="header__title">Where in the world ?</h1>
-        <div class="header__group-theme">
-            <img src="./images/moon.svg" alt="" class="header__icon">
-            <p class="header__text">Dark mode</p>
+    <div class="header__container">
+        <header class="header">
+            <h1 class="header__title">Where in the world ?</h1>
+            <div class="header__group-theme">
+                <img src="./images/moon.svg" alt="" class="header__icon">
+                <p class="header__text">Dark mode</p>
+            </div>
+        </header>
+    </div>
+
+
+    <main class="main">
+
+        <div class="flags__container">
+            <section class="flags">
+                <div class="flags__group-up">
+                    <input type="text" class="flags__input" placeholder="Search for a country">
+                    <input type="text" class="flags__choose">
+                </div>
+
+                <div class="flags__group-down">
+                    <ul class="flags__cards">
+
+                    </ul>
+                </div>
+            </section>
         </div>
-    </header>
+
+    </main>
+
+    <template id="flags">
+        <li class="flags__card">
+            <img src="https://flagcdn.com/de.svg" alt="" class="flags__image" loading="lazy">
+            <h2 class="flags__title">Germany</h2>
+            <p class="flags__text">Population: <span class="flags__span text_population">81.241.124.41412</span></p>
+            <p class="flags__text">Region: <span class="flags__span text_region">Europe</span></p>
+            <p class="flags__text">Capital: <span class="flags__span text_capital">Berlin</span></p>
+        </li>
+    </template>
 
 </body>
 

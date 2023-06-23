@@ -1,29 +1,39 @@
 :root {
     --DarkBlue: hsl(209, 23%, 22%);
     --VeryDarkBlue: hsl(207, 26%, 17%);
-    --VeryDarkBlue: hsl(200, 15%, 8%);
     --DarkGray: hsl(0, 0%, 52%);
     --VeryLightGray: hsl(0, 0%, 98%);
-    --White: hsl(0, 0%, 100%);
+    --colorText: hsl(200, 15%, 8%);
+    --colorBackground: hsl(0, 0%, 100%);
 }
+
+/* @media (prefers-color-scheme: light) {
+    :root {
+        --color-bg: #ffffff;
+        --color-fg: #000000;
+    }
+} */
 
 .body {
     margin: 0 auto;
-    background-color: var(--White);
+    background-color: var(--colorBackground);
     font-family: 'NunitoSans', sans-serif;
     font-style: normal;
     font-size: 18px;
 }
 
+.header__container {
+    background-color: var(--colorBackground);
+    box-shadow: 0 6px 3px var(--VeryLightGray);
+}
+
 .header {
     margin: 0 auto;
-    background-color: var(--White);
     max-width: 1280px;
-    min-height: 50px;
+    min-height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 10px 5px 5px var(--DarkBlue);
 }
 
 .header__title {
@@ -45,4 +55,79 @@
     margin: 0;
     font-weight: 600;
     font-size: 18px;
+}
+
+.flags__container {
+    background-color: var(--VeryLightGray);
+}
+
+.flags {
+    margin: 0 auto;
+    max-width: 1280px;
+    min-height: 600px;
+}
+
+.flags__group-up {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.flags__input {
+    width: 500px;
+    min-height: 50px;
+    padding-left: 30px;
+}
+
+.flags__group-down {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flags__cards {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+
+.flags__card {
+    padding: 0 0 50px 0;
+    max-width: 280px;
+    min-height: 300px;
+    object-fit: contain;
+    overflow: hidden;
+    background-color: var(--colorBackground);
+    border-radius: 10px;
+}
+
+.flags__image {
+    max-width: 280px;
+    object-fit: cover;
+}
+
+.flags__title {
+    margin: 0;
+    margin-top: 30px;
+    padding: 0 10px;
+    font-weight: 800;
+    font-size: 26px;
+}
+
+.flags__text {
+    margin: 0;
+    margin-top: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+.flags__span {
+    margin: 0;
+    font-weight: 300;
+    font-size: 16px;
 }
