@@ -19,7 +19,7 @@ async function getCountryAll() {
         });
 }
 
-FlagsAll()
+getCountryAll()
 
 function showCountry(data) {
     flagTemplate.content.querySelector('.flags__image').src = `${data.flags.svg}`;
@@ -54,3 +54,19 @@ function searchFlagName() {
             console.log(error);
         });
 }
+
+
+
+const dropButton = document.querySelector(".flags__button-choose");
+const dropList = document.querySelector(".flags__lists");
+const regionText = document.querySelectorAll(".flags__list-description");
+
+dropButton.addEventListener("click", () => {
+    dropList.classList.toggle("flags_opened");
+})
+
+regionText.forEach(element => {
+    element.addEventListener("click", () => {
+        console.log(element.innerText)
+    })
+});
