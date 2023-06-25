@@ -60,6 +60,7 @@ function searchFlagName() {
 const dropButton = document.querySelector(".flags__button-choose");
 const dropList = document.querySelector(".flags__lists");
 const regionText = document.querySelectorAll(".flags__list-description");
+const regionTextApi = document.getElementsByClassName("text_region");
 
 dropButton.addEventListener("click", () => {
     dropList.classList.toggle("flags_opened");
@@ -67,6 +68,14 @@ dropButton.addEventListener("click", () => {
 
 regionText.forEach(element => {
     element.addEventListener("click", () => {
-        console.log(element.innerText)
+        console.log(element)
+        Array.from(regionTextApi).forEach(elem => {
+            console.log(elem.innerText)
+            if (elem.innerText.includes(element.innerText) || element.innerText == "All") {
+                elem.parentElement.parentElement.style.display = "block";
+            } else {
+                elem.parentElement.parentElement.style.display = "none";
+            }
+        })
     })
 });

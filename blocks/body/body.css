@@ -161,6 +161,7 @@
 
 .flags__image {
     max-width: 280px;
+    max-height: 250px;
     object-fit: cover;
 }
 
