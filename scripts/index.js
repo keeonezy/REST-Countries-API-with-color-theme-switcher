@@ -8,25 +8,18 @@ const regionTextApi = document.getElementsByClassName("text_region");
 const countryTextApi = document.getElementsByClassName("flags__title");
 
 async function getCountryAll() {
-    // await fetch(`https://restcountries.com/v3.1/all`)
-    //     .then(res => res.json())
-    //     .then((data) => {
-    //         console.log(data);
+    await fetch(`https://restcountries.com/v3.1/all`)
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
 
-    //         data.forEach(element => {
-    //             showCountry(element);
-    //         });
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-
-    const url = await fetch(`https://restcountries.com/v3.1/all`);
-    const res = await url.json();
-    res.forEach(element => {
-        showCountry(element);
-    });
-
+            data.forEach(element => {
+                showCountry(element);
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 getCountryAll()
@@ -39,10 +32,6 @@ function showCountry(data) {
     flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital}`;
     flagsUl.appendChild(flagTemplate.content.cloneNode(true));
 }
-
-dropButton.addEventListener("click", () => {
-    dropList.classList.toggle("flags_opened");
-})
 
 regionText.forEach(element => {
     element.addEventListener("click", () => {
@@ -70,4 +59,20 @@ searchInput.addEventListener("input", () => {
             elem.parentElement.style.display = "none";
         }
     });
+})
+
+
+
+// Смена сайта на светлый/темный фон
+const toggleTheme = document.querySelector(".header__group-theme");
+
+// Переключаем на темный и светлый режим
+toggleTheme.addEventListener("click", () => {
+    const colorScheme = document.documentElement.getAttribute("data-color-scheme");
+    document.documentElement.setAttribute("data-color-scheme", colorScheme === "default" ? "dark" : "default");
+})
+
+
+dropButton.addEventListener("click", () => {
+    dropList.classList.toggle("flags_opened");
 })
