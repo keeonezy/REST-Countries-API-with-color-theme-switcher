@@ -1,22 +1,32 @@
 const flagsUl = document.querySelector(".flags__cards");
 const flagTemplate = document.getElementById("flags");
 
-// flagsUl.appendChild(flagTemplate.content.cloneNode(true));
-// flagsUl.appendChild(flagTemplate.content.cloneNode(true));
+const dropButton = document.querySelector(".flags__button-choose");
+const dropList = document.querySelector(".flags__lists");
+const regionText = document.querySelectorAll(".flags__list-description");
+const regionTextApi = document.getElementsByClassName("text_region");
+const countryTextApi = document.getElementsByClassName("flags__title");
 
 async function getCountryAll() {
-    await fetch(`https://restcountries.com/v3.1/all`)
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
+    // await fetch(`https://restcountries.com/v3.1/all`)
+    //     .then(res => res.json())
+    //     .then((data) => {
+    //         console.log(data);
 
-            data.forEach(element => {
-                showCountry(element);
-            });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    //         data.forEach(element => {
+    //             showCountry(element);
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+
+    const url = await fetch(`https://restcountries.com/v3.1/all`);
+    const res = await url.json();
+    res.forEach(element => {
+        showCountry(element);
+    });
+
 }
 
 getCountryAll()
@@ -29,38 +39,6 @@ function showCountry(data) {
     flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital}`;
     flagsUl.appendChild(flagTemplate.content.cloneNode(true));
 }
-
-
-
-const searchInput = document.querySelector(".flags__input");
-
-function searchFlagName() {
-
-    fetch(`https://restcountries.com/v3.1/name/${searchInput.value}`)
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
-            data.forEach(element => {
-                flagTemplate.content.querySelector('.flags__image').src = `${element.flags.svg}`;
-                flagTemplate.content.querySelector('.flags__title').textContent = `${element.name.common}`;
-                flagTemplate.content.querySelector('.text_population').textContent = `${element.population}`;
-                flagTemplate.content.querySelector('.text_region').textContent = `${element.region}`;
-                flagTemplate.content.querySelector('.text_capital').textContent = `${element.capital}`;
-                flagsUl.appendChild(flagTemplate.content.cloneNode(true));
-            });
-
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
-
-
-
-const dropButton = document.querySelector(".flags__button-choose");
-const dropList = document.querySelector(".flags__lists");
-const regionText = document.querySelectorAll(".flags__list-description");
-const regionTextApi = document.getElementsByClassName("text_region");
 
 dropButton.addEventListener("click", () => {
     dropList.classList.toggle("flags_opened");
@@ -79,3 +57,17 @@ regionText.forEach(element => {
         })
     })
 });
+
+const searchInput = document.querySelector(".flags__input");
+
+searchInput.addEventListener("input", () => {
+    console.log(searchInput.value.toLowerCase())
+    Array.from(countryTextApi).forEach(elem => {
+        console.log(elem.innerText.toLowerCase().includes(searchInput.value.toLowerCase()))
+        if (elem.innerText.toLowerCase().includes(searchInput.value.toLowerCase())) {
+            elem.parentElement.style.display = "grid";
+        } else {
+            elem.parentElement.style.display = "none";
+        }
+    });
+})
