@@ -7,6 +7,7 @@ const regionText = document.querySelectorAll(".flags__list-description");
 const regionTextApi = document.getElementsByClassName("text_region");
 const countryTextApi = document.getElementsByClassName("flags__title");
 
+
 async function getCountryAll() {
   await fetch(`https://restcountries.com/v3.1/all`)
     .then(res => res.json())
@@ -16,6 +17,7 @@ async function getCountryAll() {
       data.forEach(element => {
         showCountry(element);
       });
+
     })
     .catch((error) => {
       console.log(error);
@@ -31,6 +33,11 @@ function showCountry(data) {
   flagTemplate.content.querySelector('.text_region').textContent = `${data.region}`;
   flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital}`;
   flagsUl.appendChild(flagTemplate.content.cloneNode(true));
+
+  flagsUl.addEventListener("click", () => {
+    openPopupCountry(data);
+    // console.log(openPopupCountry(data))
+  })
 }
 
 regionText.forEach(element => {
@@ -62,8 +69,6 @@ searchInput.addEventListener("input", () => {
 })
 
 
-
-// Смена сайта на светлый/темный фон
 const toggleTheme = document.querySelector(".header__group-theme");
 
 // Переключаем на темный и светлый режим
@@ -72,7 +77,34 @@ toggleTheme.addEventListener("click", () => {
   document.documentElement.setAttribute("data-color-scheme", colorScheme === "default" ? "dark" : "default");
 })
 
-
 dropButton.addEventListener("click", () => {
   dropList.classList.toggle("flags_opened");
 })
+
+
+// Кнопка назад
+const closePopup = document.querySelector(".popup__back");
+const popup = document.querySelector(".popup");
+
+closePopup.addEventListener("click", () => {
+  popup.classList.remove("popup_opened");
+})
+
+
+const popupSet = document.querySelector(".popup__group-main");
+const popupTemplate = document.getElementById("popup");
+
+function openPopupCountry(data) {
+  popup.classList.add("popup_opened");
+  popupTemplate.content.querySelector('.popup__flag').src = `${data.flags.svg}`;
+  popupTemplate.content.querySelector('.popup__title').textContent = `${data.name.common}`;
+  popupTemplate.content.querySelector('.Native').textContent = `${data.nativeName}`;
+  popupTemplate.content.querySelector('.Population').textContent = `${data.population}`;
+  popupTemplate.content.querySelector('.Region').textContent = `${data.region}`;
+  popupTemplate.content.querySelector('.SubRegion').textContent = `${data.subRegion}`;
+  popupTemplate.content.querySelector('.Capital').textContent = `${data.capital}`;
+  popupTemplate.content.querySelector('.TopLevelDomain').textContent = `${data.population}`;
+  popupTemplate.content.querySelector('.Currencies').textContent = `${data.region}`;
+  popupTemplate.content.querySelector('.Languages').textContent = `${data.capital}`;
+  popupSet.appendChild(popupTemplate.content.cloneNode(true));
+}

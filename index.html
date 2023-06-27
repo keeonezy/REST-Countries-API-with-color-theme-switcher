@@ -101,6 +101,7 @@
 
   <div class="popup popup__country">
     <div class="popup__group">
+
       <div class="popup__back">
         <svg class="popup__icon" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <title />
@@ -118,23 +119,10 @@
         <p class="popup__text">Back</p>
       </div>
 
-      <div class="popup__group-main">
-        <img src="https://flagcdn.com/jo.svg" alt="" class="popup__flag">
-        <div class="popup__group-right">
-          <h2 class="flags__title">1</h2>
-          <p class="flags__text">Native name: <span class="flags__span text_population">1</span></p>
-          <p class="flags__text">Population: <span class="flags__span text_region">1</span></p>
-          <p class="flags__text">Region: <span class="flags__span text_capital">1</span></p>
-          <p class="flags__text">Sub Region: <span class="flags__span text_capital">1</span></p>
-          <p class="flags__text">Capital: <span class="flags__span text_capital">1</span></p>
+      <div class="popup__group-main"></div>
 
-          <p class="flags__text">Top Level Domain: <span class="flags__span text_capital">1</span></p>
-          <p class="flags__text">Currencies: <span class="flags__span text_capital">1</span></p>
-          <p class="flags__text">Languages: <span class="flags__span text_capital">1</span></p>
 
-          <p class="flags__text">Border Countries: <span class="flags__span text_capital">France</span></p>
-        </div>
-      </div>
+
     </div>
   </div>
 
@@ -146,6 +134,30 @@
       <p class="flags__text">Region: <span class="flags__span text_region">1</span></p>
       <p class="flags__text">Capital: <span class="flags__span text_capital">1</span></p>
     </li>
+  </template>
+
+  <template id="popup">
+      <img src="" alt="" class="popup__flag">
+
+      <div class="popup__group-right">
+        <h2 class="popup__title"></h2>
+        <div class="popup__group-list-left">
+          <p class="flags__text">Native name: <span class="flags__span Native">1</span></p>
+          <p class="flags__text">Population: <span class="flags__span Population">1</span></p>
+          <p class="flags__text">Region: <span class="flags__span Region">1</span></p>
+          <p class="flags__text">Sub Region: <span class="flags__span SubRegion">1</span></p>
+          <p class="flags__text">Capital: <span class="flags__span Capital">1</span></p>
+        </div>
+
+        <div class="popup__group-list-right">
+          <p class="flags__text">Top Level Domain: <span class="flags__span TopLevelDomain">1</span></p>
+          <p class="flags__text">Currencies: <span class="flags__span Currencies">1</span></p>
+          <p class="flags__text">Languages: <span class="flags__span Languages">1</span></p>
+        </div>
+
+        <p class="flags__text">Border Countries: <span class="flags__span text_capital">France</span></p>
+      </div>
+
   </template>
 
 </body>
