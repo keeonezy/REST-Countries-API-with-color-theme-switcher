@@ -1,5 +1,4 @@
 // template
-const flagTemplate = document.getElementById("flags");
 const pointTemplate = document.querySelector(".flags__cards");
 
 const dropButton = document.querySelector(".flags__button-choose");
@@ -36,17 +35,24 @@ getCountryAll()
 
 // Работа с template
 function showCountry(data) {
-  flagTemplate.content.querySelector('.flags__image').src = `${data.flags.svg}`;
-  flagTemplate.content.querySelector('.flags__title').textContent = `${data.name.common}`;
-  flagTemplate.content.querySelector('.text_population').textContent = `${data.population}`;
-  flagTemplate.content.querySelector('.text_region').textContent = `${data.region}`;
-  flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
-  pointTemplate.appendChild(flagTemplate.content.cloneNode(true));
+  const flagTemplate = document.getElementById("flags");
 
-  pointTemplate.addEventListener("click", () => {
+  const setElement = flagTemplate.content.cloneNode(true);
+  setElement.querySelector('.flags__image').src = `${data.flags.svg}`;
+  setElement.querySelector('.flags__title').textContent = `${data.name.common}`;
+  setElement.querySelector('.text_population').textContent = `${data.population}`;
+  setElement.querySelector('.text_region').textContent = `${data.region}`;
+  setElement.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
+  pointTemplate.appendChild(setElement);
+
+  // const openPopups = setElement.querySelector;
+
+  setElement.addEventListener("click", () => {
+    console.log("hi")
     openPopupCountry(data);
-    // console.log(openPopupCountry(data))
-  })
+  });
+
+  return setElement;
 }
 
 // Фильтрация по стране в drop down
@@ -95,20 +101,25 @@ closePopup.addEventListener("click", () => {
 
 
 const popupSet = document.querySelector(".popup__group-main");
-const popupTemplate = document.getElementById("popup");
 
 // Информация в попапе
 function openPopupCountry(data) {
+  const popupTemplate = document.getElementById("popup");
+
+  const setElement = popupTemplate.content.cloneNode(true);
+
   popup.classList.add("popup_opened");
-  popupTemplate.content.querySelector('.popup__flag').src = `${data.flags.svg}`;
-  popupTemplate.content.querySelector('.popup__title').textContent = `${data.name.common}`;
-  popupTemplate.content.querySelector('.Native').textContent = `${data.nativeName}`;
-  popupTemplate.content.querySelector('.Population').textContent = `${data.population}`;
-  popupTemplate.content.querySelector('.Region').textContent = `${data.region}`;
-  popupTemplate.content.querySelector('.SubRegion').textContent = `${data.subRegion}`;
-  popupTemplate.content.querySelector('.Capital').textContent = `${data.capital}`;
-  popupTemplate.content.querySelector('.TopLevelDomain').textContent = `${data.population}`;
-  popupTemplate.content.querySelector('.Currencies').textContent = `${data.region}`;
-  popupTemplate.content.querySelector('.Languages').textContent = `${data.capital}`;
-  popupSet.appendChild(popupTemplate.content.cloneNode(true));
+  setElement.querySelector('.popup__flag').src = `${data.flags.svg}`;
+  setElement.querySelector('.popup__title').textContent = `${data.name.common}`;
+  setElement.querySelector('.Native').textContent = `${data.nativeName}`;
+  setElement.querySelector('.Population').textContent = `${data.population}`;
+  setElement.querySelector('.Region').textContent = `${data.region}`;
+  setElement.querySelector('.SubRegion').textContent = `${data.subRegion}`;
+  setElement.querySelector('.Capital').textContent = `${data.capital}`;
+  setElement.querySelector('.TopLevelDomain').textContent = `${data.population}`;
+  setElement.querySelector('.Currencies').textContent = `${data.region}`;
+  setElement.querySelector('.Languages').textContent = `${data.capital}`;
+  popupSet.appendChild(setElement);
+
+  return setElement;
 }
