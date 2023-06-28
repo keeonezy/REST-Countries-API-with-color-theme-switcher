@@ -22,8 +22,8 @@ async function getCountryAll() {
     .then((data) => {
       console.log(data);
 
-      data.forEach(element => {
-        showCountry(element);
+      data.forEach(country => {
+        showCountry(country);
       });
 
     })
@@ -40,7 +40,7 @@ function showCountry(data) {
   flagTemplate.content.querySelector('.flags__title').textContent = `${data.name.common}`;
   flagTemplate.content.querySelector('.text_population').textContent = `${data.population}`;
   flagTemplate.content.querySelector('.text_region').textContent = `${data.region}`;
-  flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital}`;
+  flagTemplate.content.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
   pointTemplate.appendChild(flagTemplate.content.cloneNode(true));
 
   pointTemplate.addEventListener("click", () => {
@@ -68,9 +68,8 @@ dropDownRegionText.forEach(element => {
 searchInput.addEventListener("input", () => {
   console.log(searchInput.value.toLowerCase())
   Array.from(countryTextApi).forEach(elem => {
-    console.log(elem.innerText.toLowerCase().includes(searchInput.value.toLowerCase()))
     if (elem.innerText.toLowerCase().includes(searchInput.value.toLowerCase())) {
-      elem.parentElement.style.display = "grid";
+      elem.parentElement.style.display = "block";
     } else {
       elem.parentElement.style.display = "none";
     }
