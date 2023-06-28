@@ -169,9 +169,9 @@
 .flags__cards {
   margin: 0;
   padding: 0;
+  width: 100%;
   list-style: none;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   gap: 50px;
   cursor: pointer;
