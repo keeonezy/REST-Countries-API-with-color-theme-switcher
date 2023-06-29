@@ -47,8 +47,8 @@ function showCountry(data) {
 
   // const openPopups = setElement.querySelector;
 
-  setElement.addEventListener("click", () => {
-    console.log("hi")
+document.addEventListener("click", () => {
+    console.log("hi");
     openPopupCountry(data);
   });
 
