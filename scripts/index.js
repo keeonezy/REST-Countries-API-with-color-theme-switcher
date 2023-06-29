@@ -1,5 +1,5 @@
 // template
-const pointTemplate = document.querySelector(".flags__cards");
+const pointTemplate = document.getElementById("flags__cards");
 
 const dropButton = document.querySelector(".flags__button-choose");
 const dropList = document.querySelector(".flags__lists");
@@ -35,17 +35,19 @@ getCountryAll()
 
 // Работа с template
 function showCountry(data) {
-  const flagTemplate = document.getElementById("flags");
+  const setHTML = document.createElement('li');
+  setHTML.classList.add('flags__card');
+  setHTML.innerHTML = `
+      <img src="${data.flags.svg}" alt="" class="flags__image" loading="lazy">
+      <h2 class="flags__title">${data.name.common}</h2>
+      <p class="flags__text">Population: <span class="flags__span text_population">${data.population}</span></p>
+      <p class="flags__text">Region: <span class="flags__span text_region">${data.region}</span></p>
+      <p class="flags__text">Capital: <span class="flags__span text_capital">${data.capital ?? "-"}</span></p>
+  `
 
-  const setElement = flagTemplate.content.cloneNode(true);
-  setElement.querySelector('.flags__image').src = `${data.flags.svg}`;
-  setElement.querySelector('.flags__title').textContent = `${data.name.common}`;
-  setElement.querySelector('.text_population').textContent = `${data.population}`;
-  setElement.querySelector('.text_region').textContent = `${data.region}`;
-  setElement.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
-  pointTemplate.appendChild(setElement);
+  pointTemplate.appendChild(setHTML);
 
-  setElement.addEventListener("click", () => {
+  setHTML.addEventListener("click", () => {
     console.log("hi");
     openPopupCountry(data);
   });
@@ -100,20 +102,32 @@ const popupSet = document.querySelector(".popup__group-main");
 
 // Информация в попапе
 function openPopupCountry(data) {
-  const popupTemplate = document.getElementById("popup");
-
-  const setElement = popupTemplate.content.cloneNode(true);
+  const [currency] = Object.values(data?.currencies ?? {});
+  const languages = Object.values(data?.languages ?? {});
+  const [nativeName] = Object.values(data?.name?.nativeName ?? {});
 
   popup.classList.add("popup_opened");
-  setElement.querySelector('.popup__flag').src = `${data.flags.svg}`;
-  setElement.querySelector('.popup__title').textContent = `${data.name.common}`;
-  setElement.querySelector('.Native').textContent = `${data.nativeName}`;
-  setElement.querySelector('.Population').textContent = `${data.population}`;
-  setElement.querySelector('.Region').textContent = `${data.region}`;
-  setElement.querySelector('.SubRegion').textContent = `${data.subRegion}`;
-  setElement.querySelector('.Capital').textContent = `${data.capital}`;
-  setElement.querySelector('.TopLevelDomain').textContent = `${data.population}`;
-  setElement.querySelector('.Currencies').textContent = `${data.region}`;
-  setElement.querySelector('.Languages').textContent = `${data.capital}`;
-  popupSet.appendChild(setElement);
+  popupSet.innerHTML = `
+  <img src="${data.flags.svg}" alt="" class="popup__flag">
+
+      <div class="popup__group-right">
+        <h2 class="popup__title">${data.name.common}</h2>
+        <div class="popup__group-list-left">
+          <p class="flags__text">Native name: <span class="flags__span Native">${nativeName ? nativeName.official : data.name.official}</span></p>
+          <p class="flags__text">Population: <span class="flags__span Population">${data.population}</span></p>
+          <p class="flags__text">Region: <span class="flags__span Region">${data.region}</span></p>
+          <p class="flags__text">Sub Region: <span class="flags__span SubRegion">${data.subRegion}</span></p>
+          <p class="flags__text">Capital: <span class="flags__span Capital">${data.capital ?? "-"}</span></p>
+        </div>
+
+        <div class="popup__group-list-right">
+          <p class="flags__text">Top Level Domain: <span class="flags__span TopLevelDomain">${data.tld.map(elem => elem)}</span></p>
+          <p class="flags__text">Currencies: <span class="flags__span Currencies">${currency ? currency.name : "No currency used"}</span></p>
+          <p class="flags__text">Languages: <span class="flags__span Languages">${languages.length ? languages.join(", ") : "No languages"}</span></p>
+        </div>
+
+        <p class="flags__text">Border Countries: <span class="flags__span text_capital">${data.borders.map(elem => elem)}</span></p>
+      </div>`
+
+  popupSet.prepend()
 }
