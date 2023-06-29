@@ -14,7 +14,7 @@ const popup = document.querySelector(".popup");
 const searchInput = document.querySelector(".flags__input");
 
 
-// Получение данных с API о странах
+// Получение данных о странах по API
 async function getCountryAll() {
   await fetch(`https://restcountries.com/v3.1/all`)
     .then(res => res.json())
@@ -45,14 +45,10 @@ function showCountry(data) {
   setElement.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
   pointTemplate.appendChild(setElement);
 
-  // const openPopups = setElement.querySelector;
-
-document.addEventListener("click", () => {
+  setElement.addEventListener("click", () => {
     console.log("hi");
     openPopupCountry(data);
   });
-
-  return setElement;
 }
 
 // Фильтрация по стране в drop down
@@ -120,6 +116,4 @@ function openPopupCountry(data) {
   setElement.querySelector('.Currencies').textContent = `${data.region}`;
   setElement.querySelector('.Languages').textContent = `${data.capital}`;
   popupSet.appendChild(setElement);
-
-  return setElement;
 }
