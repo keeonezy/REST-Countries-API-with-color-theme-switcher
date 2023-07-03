@@ -1,3 +1,4 @@
+import "./index.css";
 // template
 const pointTemplate = document.getElementById("flags__cards");
 
