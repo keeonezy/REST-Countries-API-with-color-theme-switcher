@@ -127,7 +127,7 @@ function openPopupCountry(data) {
           <p class="flags__text">Languages: <span class="flags__span Languages">${languages.length ? languages.join(", ") : "No languages"}</span></p>
         </div>
 
-        <p class="flags__text">Border Countries: <span class="flags__span text_capital">${data.borders.map(elem => elem)}</span></p>
+        <p class="flags__text">Border Countries: <span class="flags__span text_capital">${data.borders?.map(elem => elem) ?? "-"}</span></p>
       </div>`
 
   popupSet.prepend()
