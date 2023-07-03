@@ -117,7 +117,7 @@ function openPopupCountry(data) {
           <p class="flags__text">Native name: <span class="flags__span Native">${nativeName ? nativeName.official : data.name.official}</span></p>
           <p class="flags__text">Population: <span class="flags__span Population">${data.population}</span></p>
           <p class="flags__text">Region: <span class="flags__span Region">${data.region}</span></p>
-          <p class="flags__text">Sub Region: <span class="flags__span SubRegion">${data.subRegion}</span></p>
+          <p class="flags__text">Sub Region: <span class="flags__span SubRegion">${data.subregion}</span></p>
           <p class="flags__text">Capital: <span class="flags__span Capital">${data.capital ?? "-"}</span></p>
         </div>
 
