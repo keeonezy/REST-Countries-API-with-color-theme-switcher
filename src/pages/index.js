@@ -36,22 +36,22 @@ getCountryAll()
 
 // Работа с template
 function showCountry(data) {
-  const setHTML = document.createElement('li');
-  setHTML.classList.add('flags__card');
-  setHTML.innerHTML = `
-      <img src="${data.flags.svg}" alt="" class="flags__image" loading="lazy">
-      <h2 class="flags__title">${data.name.common}</h2>
-      <p class="flags__text">Population: <span class="flags__span text_population">${data.population}</span></p>
-      <p class="flags__text">Region: <span class="flags__span text_region">${data.region}</span></p>
-      <p class="flags__text">Capital: <span class="flags__span text_capital">${data.capital ?? "-"}</span></p>
-  `
+  const flagTemplate = document.getElementById("flags");
 
-  pointTemplate.appendChild(setHTML);
+  const setElement = flagTemplate.content.cloneNode(true);
+  setElement.querySelector('.flags__image').src = `${data.flags.svg ?? "-"}`;
+  setElement.querySelector('.flags__title').textContent = `${data.name.common ?? "-"}`;
+  setElement.querySelector('.text_population').textContent = `${data.population ?? "-"}`;
+  setElement.querySelector('.text_region').textContent = `${data.region ?? "-"}`;
+  setElement.querySelector('.text_capital').textContent = `${data.capital ?? "-"}`;
 
-  setHTML.addEventListener("click", () => {
+  setElement.querySelector('li').addEventListener("click", () => {
     console.log("hi");
     openPopupCountry(data);
   });
+
+  // когда вы вызываете document.body.appendChild, содержимое DocumentFragment перемещается в DOM и из фрагмента. Фрагмент не сохраняет ссылку. Идея заключается в том, что у узла не может быть двух родителей. Это означает, что к тому времени, когда вы вызываете addEventListener, не существует никаких узлов, с которыми могли бы происходить события! Решение состоит в том, чтобы подключить прослушиватель событий перед вызовом .appendChild.
+  pointTemplate.appendChild(setElement);
 }
 
 // Фильтрация по стране в drop down
@@ -100,35 +100,27 @@ closePopup.addEventListener("click", () => {
 
 
 const popupSet = document.querySelector(".popup__group-main");
-
-// Информация в попапе
 function openPopupCountry(data) {
+  popupSet.textContent = "";
+
+  const popupTemplate = document.getElementById("popup");
   const [currency] = Object.values(data?.currencies ?? {});
   const languages = Object.values(data?.languages ?? {});
   const [nativeName] = Object.values(data?.name?.nativeName ?? {});
 
+  const setElement = popupTemplate.content.cloneNode(true);
+
   popup.classList.add("popup_opened");
-  popupSet.innerHTML = `
-  <img src="${data.flags.svg}" alt="" class="popup__flag">
-
-      <div class="popup__group-right">
-        <h2 class="popup__title">${data.name.common}</h2>
-        <div class="popup__group-list-left">
-          <p class="flags__text">Native name: <span class="flags__span Native">${nativeName ? nativeName.official : data.name.official}</span></p>
-          <p class="flags__text">Population: <span class="flags__span Population">${data.population}</span></p>
-          <p class="flags__text">Region: <span class="flags__span Region">${data.region}</span></p>
-          <p class="flags__text">Sub Region: <span class="flags__span SubRegion">${data.subregion}</span></p>
-          <p class="flags__text">Capital: <span class="flags__span Capital">${data.capital ?? "-"}</span></p>
-        </div>
-
-        <div class="popup__group-list-right">
-          <p class="flags__text">Top Level Domain: <span class="flags__span TopLevelDomain">${data.tld.map(elem => elem)}</span></p>
-          <p class="flags__text">Currencies: <span class="flags__span Currencies">${currency ? currency.name : "No currency used"}</span></p>
-          <p class="flags__text">Languages: <span class="flags__span Languages">${languages.length ? languages.join(", ") : "No languages"}</span></p>
-        </div>
-
-        <p class="flags__text">Border Countries: <span class="flags__span text_capital">${data.borders?.map(elem => elem) ?? "-"}</span></p>
-      </div>`
-
-  popupSet.prepend()
+  setElement.querySelector('.popup__flag').src = `${data.flags.svg ?? "-"}`;
+  setElement.querySelector('.popup__title').textContent = `${data.name.common ?? "-"}`;
+  setElement.querySelector('.Native').textContent = `${nativeName ? nativeName.official : data.name.official}`;
+  setElement.querySelector('.Population').textContent = `${data.population ?? "-"}`;
+  setElement.querySelector('.Region').textContent = `${data.region ?? "-"}`;
+  setElement.querySelector('.SubRegion').textContent = `${data.subRegion ?? "-"}`;
+  setElement.querySelector('.Capital').textContent = `${data.capital ?? "-"}`;
+  setElement.querySelector('.TopLevelDomain').textContent = `${data.tld.map(elem => elem)}`;
+  setElement.querySelector('.Currencies').textContent = `${currency ? currency.name : "No currency used"}`;
+  setElement.querySelector('.Languages').textContent = `${languages.length ? languages.join(", ") : "No languages"}`;
+  setElement.querySelector('.text_capital').textContent = `${data.borders?.map(elem => elem) ?? "-"}`;
+  popupSet.appendChild(setElement);
 }
